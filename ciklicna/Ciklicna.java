@@ -1,49 +1,64 @@
 package ciklicna;
 
+import java.util.Scanner;
+
 public class Ciklicna {
 
 	public static void main(String[] args) {
 
-		int r = 5;
-		int s = 5;
-		int[][] matrica = new int[r][s];
+		Scanner scanner = new Scanner(System.in);
 
-		int broj = 1;
-		int minRed = 0;
-		int maxRed = r - 1;
-		int minStupac = 0;
-		int maxStupac = s - 1;
+		System.out.print("Unesite broj redaka: ");
+		int redaka = scanner.nextInt();
 
-		while (broj <= r * s) {
-			for (int i = minStupac; i <= maxStupac; i++) {
-				matrica[minRed][i] = broj++;
+		System.out.print("Unesite broj stupaca: ");
+		int stupaca = scanner.nextInt();
+
+		int[][] matrica = new int[redaka][stupaca];
+		int brojElemenata = redaka * stupaca;
+
+		if (brojElemenata > 0) {
+			int broj = 1;
+			int minRed = 0;
+			int maxRed = redaka - 1;
+			int minStupac = 0;
+			int maxStupac = stupaca - 1;
+
+			while (broj <= brojElemenata) {
+				for (int i = minStupac; i <= maxStupac; i++) {
+					matrica[minRed][i] = broj++;
+				}
+				minRed++;
+
+				for (int i = minRed; i <= maxRed; i++) {
+					matrica[i][maxStupac] = broj++;
+				}
+				maxStupac--;
+
+				if (broj <= brojElemenata) {
+					for (int i = maxStupac; i >= minStupac; i--) {
+						matrica[maxRed][i] = broj++;
+					}
+					maxRed--;
+				}
+
+				if (broj <= brojElemenata) {
+					for (int i = maxRed; i >= minRed; i--) {
+						matrica[i][minStupac] = broj++;
+					}
+					minStupac++;
+				}
 			}
-			minRed++;
 
-		
-
-		for (int i = minRed; i <= maxRed; i++) {
-			matrica[i][maxStupac] = broj++;
-		}
-		maxStupac--;
-
-		for (int i = maxStupac; i >= minStupac; i--) {
-			matrica[maxRed][i] = broj++;
-		}
-		maxRed--;
-
-		for (int i = maxRed; i >= minRed; i--) {
-			matrica[i][minStupac] = broj++;
-		}
-		minStupac++;
-		}
-	
-
-		for (int i = 0; i < r; i++) {
-			for (int j = 0; j < s; j++) {
-				System.out.print(matrica[i][j] + "\t");
+			// Ispisivanje matrice
+			for (int i = 0; i < redaka; i++) {
+				for (int j = 0; j < stupaca; j++) {
+					System.out.print(matrica[i][j] + "\t");
+				}
+				System.out.println();
 			}
-			System.out.println();
+		} else {
+			System.out.println("Unijeli ste neispravne dimenzije matrice.");
 		}
 
 	}
