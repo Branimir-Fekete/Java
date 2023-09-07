@@ -2,6 +2,8 @@ package aplikacija;
 
 import java.util.Scanner;
 
+ 
+
 public class Izbornik {
 
 	private ObradaProizvod obradaProizvod;
